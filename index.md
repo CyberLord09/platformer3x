@@ -50,11 +50,14 @@ image: /images/platformer/backgrounds/home.png
       <div id="leaderboard"> <!-- Controls -->
           <button id="leaderboard-button">Leaderboard</button>
       </div>
+      <div id="controlText"> <!-- Controls -->
+          <button onclick="controlText()">Hide Fun Fact</button>
+      </div>
     </div>
     <!-- JavaScript-generated canvas items are inserted here -->
   </div>
   
-  <div id="container">
+  <div id="container" style="display: block;">
       <header class="fun_facts">
       <p id="num">Fun Fact #0</p>
       <h3 id="fun_fact">Mario is named after frustrated landlord, Mario Segale, of the Nintendo of America building.</h3> <!-- want to access later so have id-->
@@ -63,6 +66,21 @@ image: /images/platformer/backgrounds/home.png
   
   <footer id="cut-story"></footer>
   
+
+  <script>
+  var hideFunFact = document.getElementById("container");
+
+  function controlText() {
+    if(hideFunFact.style.display === "block"){
+      hideFunFact.style.display = "none";
+      document.getElementById("controlText").querySelector("button").innerText = "Show Fun Fact";
+    } else{
+      hideFunFact.style.display = "block";
+      document.getElementById("controlText").querySelector("button").innerText = "Hide Fun Fact";
+
+    }
+  };
+</script>
   <script type="module">
       // Imports to drive game
       import GameSetup from '{{site.baseurl}}/assets/js/platformer3x/GameSetup.js';
