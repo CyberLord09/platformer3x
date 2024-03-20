@@ -16,33 +16,7 @@ export class oneDPlayer extends BasePlayer {
     // instantiation: constructor sets up oneDPlayer object 
     constructor(canvas, image, data, widthPercentage = 0.3, heightPercentage = 0.8) {
         super(canvas, image, data, widthPercentage, heightPercentage);
-        // oneDPlayer Data is required for Animations
-        this.playerData = data;
-        GameEnv.invincible = false; 
 
-        // oneDPlayer control data
-        this.moveSpeed = this.speed * 3;
-        this.pressedKeys = {};
-        this.movement = {up: true, down: true, left: true, right: true};
-        this.isIdle = true;
-        this.directionKey = "d"; // initially facing right
-
-        // Store a reference to the event listener function
-        this.keydownListener = this.handleKeyDown.bind(this);
-        this.keyupListener = this.handleKeyUp.bind(this);
-
-        // Add event listeners
-        document.addEventListener('keydown', this.keydownListener);
-        document.addEventListener('keyup', this.keyupListener);
-
-        GameEnv.oneDPlayer = this;
-        this.transitionHide = false;
-        this.shouldBeSynced = true;
-        this.isDying = false;
-        this.isDyingR = false;
-        this.timer = false;
-
-        this.name = GameEnv.userID;
     }
 
 
