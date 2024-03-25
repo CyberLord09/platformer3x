@@ -81,7 +81,7 @@ export class BasePlayer extends Character {
             if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
                 this.canvas.style.transition = "transform 0.5s";
                 this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
-                playPlayerDeath();
+                GameEnv.playSound("PlayerDeath");
 
                 if (this.isDying == false) {
                     this.isDying = true;
@@ -152,10 +152,12 @@ export class BasePlayer extends Character {
         // Player moving right 
         if (this.isActiveAnimation("a")) {
             if (this.movement.left) this.x -= this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to left
+            this.canvas.style.transform = 'scaleX(-1)';
         }
         // Player moving left
         if (this.isActiveAnimation("d")) {
             if (this.movement.right) this.x += this.isActiveAnimation("s") ? this.moveSpeed : this.speed;  // Move to right
+            this.canvas.style.transform = 'none';
         }
         // Player moving at dash speed left or right 
         if (this.isActiveAnimation("s")) {}

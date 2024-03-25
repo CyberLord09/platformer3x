@@ -10,6 +10,7 @@ import BackgroundClouds from './BackgroundClouds.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
+import Zombie from './Zombie.js';
 import BasePlayer from './BasePlayer.js';
 import oneDPlayer from './oneDPlayer.js';
 import Tube from './Tube.js';
@@ -284,6 +285,21 @@ const GameSetup = {
           width: 200,
           height: 180,
         },
+        zombie: {
+          src: "/images/platformer/platforms/Zombiev1/SpriteSheet/Zombie_v1_Sheet.png",
+          width: 130,
+          height: 70,
+          scaleSize: 60,
+          speedRatio: 0.4,
+          xPercentage: 0.6,
+          w: {row: 6, frames: 12},
+          wa: {row: 6, frames: 12},
+          wd: {row: 6, frames: 12},
+          idle: { row: 2, frames: 12, idleFrame: {column: 1, frames: 0} },
+          a: { row: 3, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Right Movement
+          s: {row: 3, frames: 12}, // Stop the movement 
+          d: { row: 3, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
+        },
       }
     },
 
@@ -449,7 +465,7 @@ const GameSetup = {
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.7 },
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.6 },
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.05},
-          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'zombie', id: 'zombie', class: Zombie, data: this.assets.enemies.zombie, xPercentage:  0.5, minPosition: 0.3 },
           { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},

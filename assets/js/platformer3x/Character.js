@@ -23,7 +23,7 @@ class Character extends GameObject {
     }
 
     getMinFrame(){
-        return this.manFrame;
+        return this.minFrame;
     }
 
     setMinFrame(minFrame){
