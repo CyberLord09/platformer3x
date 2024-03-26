@@ -136,7 +136,7 @@ class Character extends GameObject {
         if (this.frameX < this.maxFrame) {
             this.frameX++;
         } else {
-            this.frameX = 0;
+            this.frameX = this.minFrame;
         }
 
         this.collisionChecks();

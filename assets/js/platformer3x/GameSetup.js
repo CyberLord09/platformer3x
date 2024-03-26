@@ -212,7 +212,6 @@ const GameSetup = {
           height: 256,
           scaleSize: 80,
           speedRatio: 0.7,
-          w: { row: 10, frames: 15 },
           wa: { row: 11, frames: 15 },
           wd: { row: 10, frames: 15 },
           a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
@@ -225,9 +224,8 @@ const GameSetup = {
           height: 40,
           scaleSize: 80,
           speedRatio: 0.7,
-          w: { row: 9, frames: 15 }, //walk left
-          wa: { row: 9, frames: 15 }, //walk left(air)
-          wd: { row: 9, frames: 15 },  //walk right(air)
+          wa: { row: 9, min: 8, frames: 15 },
+          wd: { row: 9, min: 0, frames: 7 },
           a: { row: 1, frames: 15, idleFrame: { column: 7, frames: 0 } },
           s: { row: 12, frames: 15 },
           d: { row: 0, frames: 15, idleFrame: { column: 7, frames: 0 } }
@@ -238,7 +236,6 @@ const GameSetup = {
           height: 52.5,
           scaleSize: 60,
           speedRatio: 0.7,
-          w: {row: 1, frames: 3}, //walk left
           wa: {row: 1, frames: 3}, //walk left
           wd: {row: 2, frames: 3}, //walk left
           idle: { row: 6, frames: 1, idleFrame: {column: 1, frames: 0} },
@@ -254,7 +251,6 @@ const GameSetup = {
           height: 24,
           scaleSize: 60,
           speedRatio: 0.7,
-          w: {row: 3, frames: 8},
           wa: {row: 3, frames: 8},
           wd: {row: 3, frames: 8},
           idle: { row: 0, frames: 2, idleFrame: {column: 1, frames: 0} },
@@ -289,10 +285,9 @@ const GameSetup = {
           src: "/images/platformer/platforms/Zombiev1/SpriteSheet/Zombie_v1_Sheet.png",
           width: 130,
           height: 70,
-          scaleSize: 60,
+          scaleSize: 150,
           speedRatio: 0.4,
           xPercentage: 0.6,
-          w: {row: 6, frames: 12},
           wa: {row: 6, frames: 12},
           wd: {row: 6, frames: 12},
           idle: { row: 2, frames: 12, idleFrame: {column: 1, frames: 0} },
