@@ -12,11 +12,15 @@ class Character extends GameObject {
         // scale size
         this.scaleSize = data?.scaleSize || 80;
 
+        this.animationSpeed = data?.animationSpeed; //higher "animationSpeed" means slower animation
+        this.counter = data?.animationSpeed;
+
         // sprint frame management
         this.minFrame = 0;
         this.maxFrame = 0;
         this.frameX = 0;  // Default X frame of the animation
         this.frameY = 0;  // Default Y frame of the animation
+
         
         // gravity for character enabled by default
         this.gravityEnabled = true;
@@ -132,9 +136,17 @@ class Character extends GameObject {
         if (this.bottom > this.y && this.gravityEnabled)
             this.y += GameEnv.gravity;
 
-        // Update animation frameX of the object
+        // Update animation frameX of the object with a delay
+        
         if (this.frameX < this.maxFrame) {
-            this.frameX++;
+            if(this.counter > 0){
+                this.frameX = this.frameX; 
+                this.counter--;
+            }
+            else{
+                this.frameX++
+                this.counter = this.animationSpeed;
+            }
         } else {
             this.frameX = this.minFrame;
         }

@@ -212,11 +212,12 @@ const GameSetup = {
           height: 256,
           scaleSize: 80,
           speedRatio: 0.7,
-          wa: { row: 11, frames: 15 },
-          wd: { row: 10, frames: 15 },
-          a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
-          s: { row: 12, frames: 15 },
-          d: { row: 2, frames: 7, idleFrame: { column: 7, frames: 0 } }
+          animationSpeed: 10, //higher "animationSpeed" means slower animation
+          wa: { row: 11, min:0, frames: 15 },
+          wd: { row: 10, min:0, frames: 15 },
+          a: { row: 3, min:0, frames: 7, idleFrame: { column: 7, frames: 0 } },
+          s: { row: 12, min:0, frames: 15 },
+          d: { row: 2, min:0, frames: 7, idleFrame: { column: 7, frames: 0 } }
         },
         monkey: {
           src: "/images/platformer/sprites/monkey.png",
@@ -224,11 +225,12 @@ const GameSetup = {
           height: 40,
           scaleSize: 80,
           speedRatio: 0.7,
+          animationSpeed: 10, //higher "animationSpeed" means slower animation
           wa: { row: 9, min: 8, frames: 15 },
           wd: { row: 9, min: 0, frames: 7 },
-          a: { row: 1, frames: 15, idleFrame: { column: 7, frames: 0 } },
-          s: { row: 12, frames: 15 },
-          d: { row: 0, frames: 15, idleFrame: { column: 7, frames: 0 } }
+          a: { row: 1, min:0, frames: 15, idleFrame: { column: 7, frames: 0 } },
+          s: { row: 12, min:0, frames: 15 },
+          d: { row: 0, min:0, frames: 15, idleFrame: { column: 7, frames: 0 } }
         },
         lopez: {
           src: "/images/platformer/sprites/lopezanimation.png", 
@@ -236,14 +238,15 @@ const GameSetup = {
           height: 52.5,
           scaleSize: 60,
           speedRatio: 0.7,
-          wa: {row: 1, frames: 3}, //walk left
-          wd: {row: 2, frames: 3}, //walk left
-          idle: { row: 6, frames: 1, idleFrame: {column: 1, frames: 0} },
-          a: { row: 1, frames: 3, idleFrame: { column: 1, frames: 0 } }, // Right Movement
-          s: {row: 1, frames: 3}, // Stop the movement 
-          d: { row: 2, frames: 3, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
-          runningLeft: { row: 5, frames: 3, idleFrame: {column: 1, frames: 0} },
-          runningRight: { row: 4, frames: 3, idleFrame: {column: 1, frames: 0} },
+          animationSpeed: 10, //higher "animationSpeed" means slower animation
+          wa: {row: 1, min:0, frames: 3}, //walk left
+          wd: {row: 2, min:0, frames: 3}, //walk left
+          idle: { row: 6, min:0, frames: 1, idleFrame: {column: 1, frames: 0} },
+          a: { row: 1, min:0, frames: 3, idleFrame: { column: 1, frames: 0 } }, // Right Movement
+          s: {row: 1, min:0, frames: 3}, // Stop the movement 
+          d: { row: 2, min:0, frames: 3, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
+          runningLeft: { row: 5, min:0, frames: 3, idleFrame: {column: 1, frames: 0} },
+          runningRight: { row: 4, min:0, frames: 3, idleFrame: {column: 1, frames: 0} },
         },
         cuteBeing: {
           src: "/images/platformer/sprites/cuteBeing.png", 
@@ -251,12 +254,13 @@ const GameSetup = {
           height: 24,
           scaleSize: 60,
           speedRatio: 0.7,
-          wa: {row: 3, frames: 8},
-          wd: {row: 3, frames: 8},
-          idle: { row: 0, frames: 2, idleFrame: {column: 1, frames: 0} },
+          animationSpeed: 10,
+          wa: {row: 3, min:0, frames: 8},
+          wd: {row: 3, min:0, frames: 8},
+          idle: { row: 0, min:0, frames: 2, idleFrame: {column: 1, frames: 0} },
           a: { row: 1, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Right Movement
-          s: {row: 1, frames: 4}, // Stop the movement 
-          d: { row: 1, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
+          s: {row: 1, min:0, frames: 4}, // Stop the movement 
+          d: { row: 1, min:0, frames: 4, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
         },
 
       },
@@ -268,6 +272,7 @@ const GameSetup = {
           scaleSize: 60,
           speedRatio: 0.7,
           xPercentage: 0.6,
+          animationSpeed: 10,
         },
         flyingGoomba: {
           src: "/images/platformer/sprites/flying-goomba.png",
@@ -275,11 +280,13 @@ const GameSetup = {
           height: 452,
           scaleSize: 60,
           speedRatio: 0.7,
+          animationSpeed: 10,
         },
         mushroom: {
           src: "/images/platformer/platforms/mushroom.png",
           width: 200,
           height: 180,
+          animationSpeed: 10,
         },
         zombie: {
           src: "/images/platformer/platforms/Zombiev1/SpriteSheet/Zombie_v1_Sheet.png",
@@ -288,12 +295,13 @@ const GameSetup = {
           scaleSize: 150,
           speedRatio: 0.4,
           xPercentage: 0.6,
-          wa: {row: 6, frames: 12},
-          wd: {row: 6, frames: 12},
-          idle: { row: 2, frames: 12, idleFrame: {column: 1, frames: 0} },
-          a: { row: 3, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Right Movement
-          s: {row: 3, frames: 12}, // Stop the movement 
-          d: { row: 3, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
+          animationSpeed: 10,
+          wa: {row: 6, min:0, frames: 12},
+          wd: {row: 6, min:0, frames: 12},
+          idle: { row: 2, min:0, frames: 12, idleFrame: {column: 1, frames: 0} },
+          a: { row: 3, min:0, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Right Movement
+          s: {row: 3, min:0, frames: 12}, // Stop the movement 
+          d: { row: 3, min:0, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
         },
       }
     },
