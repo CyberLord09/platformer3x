@@ -197,8 +197,10 @@ const GameSetup = {
         avenida: { src: "/images/platformer/backgrounds/avenidawide3.jpg" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
         clouds : { src: "/images/platformer/backgrounds/clouds.png"},
+        graveyard: { src: "/images/platformer/platforms/Zombiev1/Environment/graveyard.png" },
+        graveyardObject: { src: "/images/platformer/platforms/Zombiev1/Environment/objects.png" },
         space: { src: "/images/platformer/backgrounds/planet.jpg" },
-        level4: { src: "/images/platformer/backgrounds/planet.jpg" },
+        level4: { src: "/images/platformer/platforms/Zombiev1/Environment/background.png" },
         castles: { src: "/images/platformer/backgrounds/castles.png" },
         loading: { src: "/images/platformer/backgrounds/greenscreen.png" },
         complete: { src: "/images/platformer/backgrounds/OneStar.png" },
@@ -457,6 +459,8 @@ const GameSetup = {
         const level4GameObjects = [
           // GameObject(s), the order is important to z-index...
           { name: 'level4', id: 'background', class: Background, data: this.assets.backgrounds.level4 },
+          { name: 'graveyard', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.graveyard },
+          { name: 'graveyardObject', id: 'background', class: BackgroundHills, data: this.assets.backgrounds.graveyardObject },
           { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass },
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.2, yPercentage: 0.85 },
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.2368, yPercentage: 0.85 },
