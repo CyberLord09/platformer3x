@@ -294,7 +294,7 @@ const GameSetup = {
           src: "/images/platformer/platforms/Zombiev1/SpriteSheet/Zombie_v1_Sheet.png",
           width: 130,
           height: 70,
-          scaleSize: 150,
+          scaleSize: 100,
           speedRatio: 0.4,
           xPercentage: 0.6,
           animationSpeed: 10,

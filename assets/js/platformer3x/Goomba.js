@@ -18,6 +18,8 @@ export class Goomba extends Character {
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
+        this.collisionYes = false;
+
         this.immune = 0;
 
         //Define Speed of Enemy
@@ -30,9 +32,25 @@ export class Goomba extends Character {
         }
     }
 
+
+    
+
     update() {
         super.update();
         
+        if(!(this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)){
+            this.collisionYes = false;
+            this.x -= this.speed;
+        }
+
+        if(this.collisionData.touchPoints.other.left){
+            this.x += this.speed;
+        } else if (this.collisionData.touchPoints.other.right){
+            this.x -= this.speed;
+        }
+
+
+
         // Check for boundaries
         if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
             this.speed = -this.speed;
@@ -85,7 +103,7 @@ export class Goomba extends Character {
         }
 
         // Move the enemy
-        this.x -= this.speed;
+        
 
         this.playerBottomCollision = false;
     }
@@ -94,7 +112,8 @@ export class Goomba extends Character {
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
             if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
-                this.speed = -this.speed;            
+                this.speed = -this.speed; 
+                this.collisionYes = true;           
             }
         }
 
@@ -123,14 +142,17 @@ export class Goomba extends Character {
             }
         }
 
-        if (this.collisionData.touchPoints.other.id === "goomba") {
-            if (GameEnv.difficulty !== "impossible" && (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right)) {
-                this.speed = -this.speed;      
+        if (this.collisionData.touchPoints.other.id === "goomba" && !this.collisionYes) {
+            if (GameEnv.difficulty !== "impossible" ) {
+                this.speed = -this.speed
+                this.collisionYes = true;
+                  
             }
         }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
             if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
-                this.speed = -this.speed;            
+                this.speed = -this.speed;          
+                this.collisionYes = true;  
             }
         }
     }
