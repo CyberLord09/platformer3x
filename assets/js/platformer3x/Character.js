@@ -12,6 +12,9 @@ class Character extends GameObject {
         // scale size
         this.scaleSize = data?.scaleSize || 80;
 
+        this.animationSpeed = data?.animationSpeed; //higher "animationSpeed" means slower animation
+        this.counter = data?.animationSpeed;
+        
         // sprint frame management
         this.minFrame = 0;
         this.maxFrame = 0;
@@ -134,7 +137,14 @@ class Character extends GameObject {
 
         // Update animation frameX of the object
         if (this.frameX < this.maxFrame) {
-            this.frameX++;
+            if(this.counter > 0){
+                this.frameX = this.frameX; 
+                this.counter--;
+            }
+            else{
+                this.frameX++
+                this.counter = this.animationSpeed;
+            }
         } else {
             this.frameX = this.minFrame;
         }

@@ -2,15 +2,17 @@ import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import GameControl from './GameControl.js';
 
-export class Goomba extends Character {
+export class BaseEnemy extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
-        super(canvas, image, data);
+        super(canvas, image, data, 0.0, 0.2);
 
+        this.playerData = data;
         //Unused but must be Defined
         this.name = name;
         this.y = yPercentage;
 
+        this.isIdle = false;
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
 
@@ -19,6 +21,8 @@ export class Goomba extends Character {
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
         this.immune = 0;
+
+        this.direction = "d"; // initially facing right
 
         //Define Speed of Enemy
         if (["easy", "normal"].includes(GameEnv.difficulty)) {
@@ -30,51 +34,40 @@ export class Goomba extends Character {
         }
     }
 
+    setAnimation(key) {
+        // animation comes from playerData
+        var animation = this.playerData[key]
+
+        // set frame and idle frame
+        this.setFrameY(animation.row);
+        this.setMaxFrame(animation.frames);
+        if (this.isIdle && animation.idleFrame) {
+            this.setFrameX(animation.idleFrame.column)
+            this.setMinFrame(animation.idleFrame.frames);
+        }
+    }
+
     update() {
         super.update();
         
+        this.setAnimation(this.direction);
         // Check for boundaries
-        if (this.x <= this.minPosition){
-            this.speed = Math.abs(this.speed);   
-        }
-        else if(this.x + this.canvasWidth >= this.maxPosition){
-            this.speed = -Math.abs(this.speed);
-        };
-
-        //Random Event 2: Time Stop All Goombas
-        if (GameControl.randomEventId === 2 && GameControl.randomEventState === 1) {
-            this.speed = 0;
-            if (this.name === "goombaSpecial") {
-                GameControl.endRandomEvent();
-            };
-        };
-
-        //Random Event 3: Kill a Random Goomba
-        //Whichever Goomba recieves this message first will die, then end the event so the other Goombas don't die
-        if (GameControl.randomEventId === 3 && GameControl.randomEventState === 1) {
-            this.destroy();
-            GameControl.endRandomEvent();
-        };
-
-        // Every so often change direction
-        switch(GameEnv.difficulty) {
-            case "normal":
-                if (Math.random() < 0.005) this.speed = -this.speed;
-                break;
-            case "hard":
-                if (Math.random() < 0.01) this.speed = -this.speed;
-                break;
-            case "impossible":
-                if (Math.random() < 0.02) this.speed = -this.speed;
-                break;
-        }
-
-         //Chance for Goomba to turn Gold
-         if (["normal","hard"].includes(GameEnv.difficulty)) {
-            if (Math.random() < 0.00001) {
-                this.canvas.style.filter = 'brightness(1000%)';
-                this.immune = 1;
+        if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
+            if(this.direction === "a"){
+                this.direction = "d";
             }
+            else if(this.direction === "d"){
+                this.direction = "a";
+            }
+        };
+
+        if(this.direction === "d"){
+            this.speed = Math.abs(this.speed)
+            this.canvas.style.transform = 'none';
+        }
+        else if(this.direction === "a"){
+            this.speed = -Math.abs(this.speed);
+            this.canvas.style.transform = 'scaleX(-1)';
         }
         
         //Immunize Goomba & Texture It
@@ -87,7 +80,7 @@ export class Goomba extends Character {
             this.immune = 1;
         }
 
-        // Move the enemy
+        // Move the enemy\
         this.x += this.speed;
 
         this.playerBottomCollision = false;
@@ -96,11 +89,13 @@ export class Goomba extends Character {
     // Player action on collisions
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
-            if(this.collisionData.touchPoints.other.left){
-                this.speed = -Math.abs(this.speed);   
-            }
-            else if(this.collisionData.touchPoints.other.right){
-                this.speed = Math.abs(this.speed);
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                if(this.direction === "a"){
+                    this.direction = "d";
+                }
+                else if(this.direction === "d"){
+                    this.direction = "a";
+                }       
             }
         }
 
@@ -126,33 +121,20 @@ export class Goomba extends Character {
                 }).bind(this), 1500);
 
     
-                // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
-                setTimeout(function () {
-                this.destroy();
-                GameEnv.invincible = false;
-                }, 2000);
             }
         }
 
-        if (this.collisionData.touchPoints.other.id === "goomba") {
-            if (GameEnv.difficulty !== "impossible") {
-                if(this.collisionData.touchPoints.other.left){
-                    this.speed = -Math.abs(this.speed);   
-                }
-                else if(this.collisionData.touchPoints.other.right){
-                    this.speed = Math.abs(this.speed);
-                }
-            }
-        }
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            if(this.collisionData.touchPoints.other.left){
-                this.speed = -Math.abs(this.speed);   
-            }
-            else if(this.collisionData.touchPoints.other.right){
-                this.speed = Math.abs(this.speed);
+            if (this.collisionData.touchPoints.other.left || this.collisionData.touchPoints.other.right) {
+                if(this.direction === "a"){
+                    this.direction = "d";
+                }
+                else if(this.direction === "d"){
+                    this.direction = "a";
+                }
             }
         }
     }
 }
 
-export default Goomba;
+export default BaseEnemy;

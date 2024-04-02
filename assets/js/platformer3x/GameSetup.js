@@ -10,6 +10,7 @@ import BackgroundClouds from './BackgroundClouds.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
+import BaseEnemy from './BaseEnemy.js';
 import Tube from './Tube.js';
 import Tree from './Tree.js';
 import Goomba from './Goomba.js';
@@ -213,6 +214,7 @@ const GameSetup = {
           height: 256,
           scaleSize: 80,
           speedRatio: 0.7,
+          animationSpeed: 5, //higher number means slower animation
           wa: { row: 11, frames: 15 },
           wd: { row: 10, frames: 15 },
           a: { row: 3, frames: 7, idleFrame: { column: 7, frames: 0 } },
@@ -270,6 +272,21 @@ const GameSetup = {
           width: 200,
           height: 180,
           hitbox: { widthPercentage: 0.0, heightPercentage: 0.2}
+        },
+        zombie: {
+          src: "/images/platformer/sprites/Zombiev1/SpriteSheet/Zombie_v1_Sheet.png",
+          width: 130,
+          height: 70,
+          scaleSize: 70,
+          speedRatio: 0.4,
+          xPercentage: 0.6,
+          animationSpeed: 5,
+          wa: {row: 6, min:0, frames: 12},
+          wd: {row: 6, min:0, frames: 12},
+          idle: { row: 2, min:0, frames: 12, idleFrame: {column: 1, frames: 0} },
+          a: { row: 3, min:0, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Right Movement
+          s: {row: 3, min:0, frames: 12}, // Stop the movement 
+          d: { row: 3, min:0, frames: 12, idleFrame: { column: 1, frames: 0 } }, // Left Movement 
         },
       }
     },
@@ -411,7 +428,7 @@ const GameSetup = {
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.7 },
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.6 },
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.07},
-          { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'zombie', id: 'zombie', class: BaseEnemy, data: this.assets.enemies.zombie, xPercentage:  0.5, minPosition: 0.3 },
           { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
