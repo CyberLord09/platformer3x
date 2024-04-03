@@ -2,7 +2,7 @@ import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import GameControl from './GameControl.js';
 
-export class BaseEnemy extends Character {
+export class Enemy extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition){
         super(canvas, image, data, 0.0, 0.2);
@@ -137,4 +137,4 @@ export class BaseEnemy extends Character {
     }
 }
 
-export default BaseEnemy;
+export default Enemy;

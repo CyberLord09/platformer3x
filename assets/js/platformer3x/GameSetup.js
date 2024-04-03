@@ -10,7 +10,7 @@ import BackgroundClouds from './BackgroundClouds.js';
 import Platform from './Platform.js';
 import JumpPlatform from './JumpPlatform.js';
 import Player from './Player.js';
-import BaseEnemy from './BaseEnemy.js';
+import Enemy from './Enemy.js';
 import Tube from './Tube.js';
 import Tree from './Tree.js';
 import Goomba from './Goomba.js';
@@ -428,7 +428,7 @@ const GameSetup = {
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.7 },
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.6 },
           { name: 'goomba', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage: 0.3, minPosition: 0.07},
-          { name: 'zombie', id: 'zombie', class: BaseEnemy, data: this.assets.enemies.zombie, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'zombie', id: 'zombie', class: Enemy, data: this.assets.enemies.zombie, xPercentage:  0.5, minPosition: 0.3 },
           { name: 'goombaSpecial', id: 'goomba', class: Goomba, data: this.assets.enemies.goomba, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.5, minPosition:  0.05},
           { name: 'flyingGoomba', id: 'flyingGoomba', class: FlyingGoomba, data: this.assets.enemies.flyingGoomba, xPercentage:  0.9, minPosition: 0.5},
