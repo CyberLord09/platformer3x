@@ -22,7 +22,7 @@ import FlyingUFO from './FlyingUFO.js';
 import Alien from './Alien.js';
 import GameControl from './GameControl.js';
 import Enemy from './Enemy.js';
-
+import Boss from './Boss.js';
 //test comment
 
 /* Coding Style Notes
@@ -322,6 +322,18 @@ const GameSetup = {
           height: 1166,
           scaleSize: 150,
           speedRatio: 0.9,
+        },
+        boss: {
+          src: "/images/platformer/sprites/boss.png",
+          width: 64,
+          height: 64,
+          scaleSize: 80,
+          speedRatio: 0.7,
+          wa: { row: 9, min: 8, frames: 15 },
+          wd: { row: 9, min: 0, frames: 7 },
+          a: { row: 1, frames: 15, idleFrame: { column: 7, frames: 0 } },
+          s: { row: 12, frames: 15 },
+          d: { row: 0, frames: 15, idleFrame: { column: 7, frames: 0 } }
         },
       }
     },

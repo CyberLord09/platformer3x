@@ -2,7 +2,7 @@ import Character from './Character.js';
 import GameEnv from './GameEnv.js';
 import GameControl from './GameControl.js';
 
-export class Enemy extends Character {
+export class OneDEnemy extends Character {  //this is for enemy that has only spritesheet for one direction
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition) {
         super(canvas, image, data, 0.0, 0.2);
@@ -67,9 +67,11 @@ export class Enemy extends Character {
 
         if (this.direction === "d") {
             this.speed = Math.abs(this.storeSpeed)
+            this.canvas.style.transform = 'none';
         }
         else if (this.direction === "a") {
             this.speed = -Math.abs(this.storeSpeed);
+            this.canvas.style.transform = 'scaleX(-1)';
         }
         else if (this.direction === "idle") {
             this.speed = 0
@@ -130,4 +132,4 @@ export class Enemy extends Character {
     }
 }
 
-export default Enemy;
+export default OneDEnemy;
