@@ -327,7 +327,7 @@ const GameSetup = {
           src: "/images/platformer/sprites/boss.png",
           width: 64,
           height: 64,
-          scaleSize: 80,
+          scaleSize: 320,
           speedRatio: 0.7,
           wa: { row: 9, min: 0, frames: 8 },
           wd: { row: 11, min: 0, frames: 8 },
