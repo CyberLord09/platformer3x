@@ -329,11 +329,10 @@ const GameSetup = {
           height: 64,
           scaleSize: 80,
           speedRatio: 0.7,
-          wa: { row: 9, min: 8, frames: 15 },
-          wd: { row: 9, min: 0, frames: 7 },
-          a: { row: 1, frames: 15, idleFrame: { column: 7, frames: 0 } },
-          s: { row: 12, frames: 15 },
-          d: { row: 0, frames: 15, idleFrame: { column: 7, frames: 0 } }
+          wa: { row: 9, min: 0, frames: 8 },
+          wd: { row: 11, min: 0, frames: 8 },
+          a: { row: 9, frames: 8, idleFrame: { column: 7, frames: 0 } },
+          d: { row: 11, frames: 8, idleFrame: { column: 7, frames: 0 } }
         },
       }
     },
@@ -469,6 +468,7 @@ const GameSetup = {
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.6 },
           { name: 'alien', id: 'alien', class: Alien, data: this.assets.enemies.alien, xPercentage:  0.3, minPosition: 0.07 },
           { name: 'alien', id: 'alien', class: Alien, data: this.assets.enemies.alien, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'boss', id: 'boss', class: Boss, data: this.assets.enemies.boss, xPercentage:  0.5, minPosition: 0.3 },
           { name: 'alienSpecial', id: 'alien', class: Alien, data: this.assets.enemies.alien, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
           { name: 'flyingUFO', id: 'flyingUFO', class: FlyingUFO, data: this.assets.enemies.flyingUFO, xPercentage:  0.1, minPosition:  0.05},
           { name: 'flyingUFO', id: 'flyingUFO', class: FlyingUFO, data: this.assets.enemies.flyingUFO, xPercentage:  0.5, minPosition:  0.05},
