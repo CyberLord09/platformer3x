@@ -55,11 +55,6 @@ export class Boss extends Enemy {
             this.direction = "d"; 
             GameControl.endRandomEvent();
         }
-
-        // Move the enemy\
-        this.x += this.speed;
-
-        this.playerBottomCollision = false;
     }
 
 }

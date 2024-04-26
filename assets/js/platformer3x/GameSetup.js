@@ -329,6 +329,7 @@ const GameSetup = {
           height: 64,
           scaleSize: 320,
           speedRatio: 0.7,
+          animationSpeed: 7,   //higher animationSpeed means slower animation Speed, the number represent how many time each sprite repeated. (number 5 means each sprite will repeated 5 times instead of 1)
           wa: { row: 9, min: 0, frames: 8 },
           wd: { row: 11, min: 0, frames: 8 },
           a: { row: 9, frames: 8, idleFrame: { column: 7, frames: 0 } },

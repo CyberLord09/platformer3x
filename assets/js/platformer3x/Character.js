@@ -21,6 +21,10 @@ class Character extends GameObject {
         // gravity for character enabled by default
         this.gravityEnabled = true;
         this.onTop = false;
+
+        this.animationSpeed = data?.animationSpeed || 1; //higher "animationSpeed" means slower animation
+        this.counter = data?.animationSpeed; 
+
     }
 
     setSpriteAnimation(animation) {
@@ -146,8 +150,16 @@ class Character extends GameObject {
      * Cycle through the frameX of the character
      */
     updateFrameX() {
+        // Update animation frameX of the object
         if (this.frameX < this.maxFrame) {
-            this.frameX++;
+            if(this.counter > 0){
+                this.frameX = this.frameX; 
+                this.counter--;
+            }
+            else{
+                this.frameX++
+                this.counter = this.animationSpeed;
+            }
         } else {
             this.frameX = this.minFrame;
         }
