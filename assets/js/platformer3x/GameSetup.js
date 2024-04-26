@@ -222,7 +222,7 @@ const GameSetup = {
         }
       },
       backgrounds: {
-        boss: { src: "/images/platformer/backgrounds/bossbackground.png" },
+        boss: { src: "/images/platformer/backgrounds/BossBackground.png" },
         start: { src: "/images/platformer/backgrounds/home.png" },
         hills: { src: "/images/platformer/backgrounds/hills.png" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
