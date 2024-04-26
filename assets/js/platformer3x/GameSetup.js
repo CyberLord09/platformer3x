@@ -222,6 +222,7 @@ const GameSetup = {
         }
       },
       backgrounds: {
+        boss: { src: "/images/platformer/backgrounds/bossbackground.png" },
         start: { src: "/images/platformer/backgrounds/home.png" },
         hills: { src: "/images/platformer/backgrounds/hills.png" },
         mountains: { src: "/images/platformer/backgrounds/mountains.jpg" },
@@ -329,7 +330,6 @@ const GameSetup = {
           height: 64,
           scaleSize: 320,
           speedRatio: 0.7,
-          animationSpeed: 7,   //higher animationSpeed means slower animation Speed, the number represent how many time each sprite repeated. (number 5 means each sprite will repeated 5 times instead of 1)
           wa: { row: 9, min: 0, frames: 8 },
           wd: { row: 11, min: 0, frames: 8 },
           a: { row: 9, frames: 8, idleFrame: { column: 7, frames: 0 } },
@@ -469,7 +469,6 @@ const GameSetup = {
           { name: 'blocks', id: 'jumpPlatform', class: BlockPlatform, data: this.assets.platforms.alien, xPercentage: 0.4, yPercentage: 0.6 },
           { name: 'alien', id: 'alien', class: Alien, data: this.assets.enemies.alien, xPercentage:  0.3, minPosition: 0.07 },
           { name: 'alien', id: 'alien', class: Alien, data: this.assets.enemies.alien, xPercentage:  0.5, minPosition: 0.3 },
-          { name: 'boss', id: 'boss', class: Boss, data: this.assets.enemies.boss, xPercentage:  0.5, minPosition: 0.3 },
           { name: 'alienSpecial', id: 'alien', class: Alien, data: this.assets.enemies.alien, xPercentage:  0.75, minPosition: 0.5 }, //this special name is used for random event 2 to make sure that only one of the Goombas ends the random event
           { name: 'flyingUFO', id: 'flyingUFO', class: FlyingUFO, data: this.assets.enemies.flyingUFO, xPercentage:  0.1, minPosition:  0.05},
           { name: 'flyingUFO', id: 'flyingUFO', class: FlyingUFO, data: this.assets.enemies.flyingUFO, xPercentage:  0.5, minPosition:  0.05},
@@ -480,6 +479,15 @@ const GameSetup = {
         // Space Game Level added to the GameEnv ...
         new GameLevel( {tag: "space", callback: this.playerOffScreenCallBack, objects: spaceGameObjects} );
 
+        const bossGameObjects = [
+          { name: 'bossbackground', id: 'background', class: Background, data: this.assets.backgrounds.boss },
+          { name: 'mario', id: 'player', class: PlayerHills, data: this.assets.players.mario },
+          { name: 'boss', id: 'boss', class: Boss, data: this.assets.enemies.boss, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+          { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass }
+        ];
+
+        new GameLevel( {tag: "boss", callback: this.playerOffScreenCallBack, objects: bossGameObjects} );
         // Game Over Level definition...
         const endGameObjects = [
         { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
