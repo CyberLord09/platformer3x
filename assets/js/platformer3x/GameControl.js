@@ -173,11 +173,12 @@ const GameControl = {
         }
         else if(event === "boss"){ //zombie event
             this.randomEventState = 2;
-            this.randomEventId = Math.floor(Math.random() * 3) + 1; //The number multiplied by Math.random() is the number of possible events.
+            this.randomEventId = Math.floor(Math.random() * 4) + 1; //The number multiplied by Math.random() is the number of possible events.
             /**Random Event Key
-             * 1: Stop the Zombie
-             * 2: Let the Zombie to walk left
-             * 3: Let the Zombie to walk right
+             * 1: Stop the boss and let it face left
+             * 4: Stop the boss and let it face left
+             * 2: Let the boss to walk left
+             * 3: Let the boss to walk right
             */
         }
     },

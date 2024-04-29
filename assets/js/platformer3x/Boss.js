@@ -44,16 +44,27 @@ export class Boss extends Enemy {
         super.update();
 
         if (GameControl.randomEventId === 1 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "idle"; 
+            this.direction = "idleL"; 
             GameControl.endRandomEvent();
         }
-        if (GameControl.randomEventId === 2 && GameControl.randomEventState === 2){ //event: stop the zombie
+        else if (GameControl.randomEventId === 2 && GameControl.randomEventState === 2){ //event: stop the zombie
+            this.direction = "idleR"; 
+            GameControl.endRandomEvent();
+        }
+        else if (GameControl.randomEventId === 3 && GameControl.randomEventState === 2){ //event: stop the zombie
             this.direction = "a"; 
             GameControl.endRandomEvent();
         }
-        if (GameControl.randomEventId === 3 && GameControl.randomEventState === 2){ //event: stop the zombie
+        else if (GameControl.randomEventId === 4 && GameControl.randomEventState === 2){ //event: stop the zombie
             this.direction = "d"; 
             GameControl.endRandomEvent();
+        }
+
+        if (this.direction === "idleL") {
+            this.speed = 0
+        }
+        else if (this.direction === "idleR") {
+            this.speed = 0
         }
     }
 

@@ -333,7 +333,8 @@ const GameSetup = {
           animationSpeed: 6,
           wa: { row: 9, min: 0, frames: 8 },
           wd: { row: 11, min: 0, frames: 8 },
-          idle: { row: 0, frames: 6, idleFrame: {column: 1, frames: 0} },
+          idleL: { row: 9, frames: 0, idleFrame: {column: 1, frames: 0} },
+          idleR: { row: 11, frames: 0, idleFrame: {column: 1, frames: 0} },
           a: { row: 9, frames: 8, idleFrame: { column: 7, frames: 0 } },
           d: { row: 11, frames: 8, idleFrame: { column: 7, frames: 0 } }
         },
