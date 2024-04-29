@@ -1,6 +1,7 @@
 import GameEnv from './GameEnv.js';
 import PlayerBase from './PlayerBase.js';
 import GameControl from './GameControl.js';
+import GameSetup from './GameSetup.js';
 
 /**
  * @class PlayerHills class
@@ -38,8 +39,9 @@ export class PlayerHills extends PlayerBase {
             jumpHeightFactor = 0.50;
         } else if (GameEnv.difficulty === "normal") {
             jumpHeightFactor = 0.40;
-        } else {
-            jumpHeightFactor = 0.30;
+        }
+        if(GameEnv.currentLevel.tag == "boss"){
+            jumpHeightFactor = 0.60;
         }
         this.setY(this.y - (this.bottom * jumpHeightFactor));
     }

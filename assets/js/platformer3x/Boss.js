@@ -24,7 +24,7 @@ export class Boss extends Enemy {
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
-        this.immune = 0;
+        this.immune = 1;
 
         this.storeSpeed = this.speed;
 
