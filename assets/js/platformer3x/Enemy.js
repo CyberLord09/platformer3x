@@ -75,6 +75,9 @@ export class Enemy extends Character {
         else if (this.direction === "idle") {
             this.speed = 0
         }
+        else if (this.direction === "death") {
+            this.speed = 0
+        }
 
 
         // Move the enemy\
@@ -104,11 +107,6 @@ export class Enemy extends Character {
             if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
                 GameEnv.invincible = true;
                 GameEnv.goombaBounce = true;
-                this.canvas.style.transition = "transform 1.5s, opacity 1s";
-                this.canvas.style.transition = "transform 2s, opacity 1s";
-                this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
-                this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
-                this.speed = 0;
                 GameEnv.playSound("goombaDeath");
 
                 setTimeout((function () {

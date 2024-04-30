@@ -24,7 +24,7 @@ export class Boss extends Enemy {
         this.minPosition = minPosition * GameEnv.innerWidth;
         this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
 
-        this.immune = 1;
+        this.immune = 0;
 
         this.storeSpeed = this.speed;
 
@@ -65,6 +65,30 @@ export class Boss extends Enemy {
         }
         else if (this.direction === "idleR") {
             this.speed = 0
+        }
+    }
+
+    collisionAction() {
+        super.collisionAction();
+
+
+        if (this.collisionData.touchPoints.other.id === "player") {
+            if (this.collisionData.touchPoints.other.right && !this.collisionData.touchPoints.other.bottom) {
+                this.direction = "attackL"; 
+                this.speed = 0;
+            }
+            else if(this.collisionData.touchPoints.other.left && !this.collisionData.touchPoints.other.bottom){
+                this.direction = "attackR"; 
+                this.speed = 0;
+            }
+            else if(this.collisionData.touchPoints.other.bottom && this.immune == 0){
+                GameEnv.invincible = true;
+                GameEnv.goombaBounce = true;
+                GameEnv.playSound("goombaDeath");
+                this.animationSpeed = 55;
+                this.direction = "death";
+            }
+            
         }
     }
 
