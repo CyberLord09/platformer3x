@@ -484,8 +484,9 @@ const GameSetup = {
 
         const bossGameObjects = [
           { name: 'bossbackground', id: 'background', class: Background, data: this.assets.backgrounds.boss },
-          { name: 'mario', id: 'player', class: PlayerHills, data: this.assets.players.mario },
           { name: 'boss', id: 'boss', class: Boss, data: this.assets.enemies.boss, xPercentage:  0.5, minPosition: 0.3 },
+          { name: 'boss1', id: 'boss', class: Boss, data: this.assets.enemies.boss, xPercentage:  0.3, minPosition: 0.07 },
+          { name: 'mario', id: 'player', class: PlayerHills, data: this.assets.players.mario },
           { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
           { name: 'grass', id: 'platform', class: Platform, data: this.assets.platforms.grass }
         ];
