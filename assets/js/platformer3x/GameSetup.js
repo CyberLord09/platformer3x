@@ -329,7 +329,7 @@ const GameSetup = {
           width: 64,
           height: 64,
           scaleSize: 320,
-          speedRatio: 0.7,
+          speedRatio: 1.0,
           animationSpeed: 6,
           wa: { row: 9, min: 0, frames: 8 },
           wd: { row: 11, min: 0, frames: 8 },
