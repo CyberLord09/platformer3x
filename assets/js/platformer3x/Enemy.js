@@ -79,6 +79,8 @@ export class Enemy extends Character {
             this.speed = 0
         }
 
+        
+
 
         // Move the enemy\
         this.x += this.speed;

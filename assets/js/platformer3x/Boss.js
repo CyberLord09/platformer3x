@@ -40,6 +40,40 @@ export class Boss extends Enemy {
 
     }
 
+    updateFrameX() {
+        // Update animation frameX of the object
+        if(!GameEnv.BossDeath || this.direction != "death"){
+            if (this.frameX < this.maxFrame) {
+                if(this.counter > 0){
+                    this.frameX = this.frameX; 
+                    this.counter--;
+                }
+                else{
+                    this.frameX++
+                    this.counter = this.animationSpeed;
+                }
+            } else {
+                this.frameX = this.minFrame;
+            }
+        }
+        else if(GameEnv.BossDeath && this.direction == "death"){
+            this.animationSpeed = 50;
+            if (this.frameX < this.maxFrame) {
+                if(this.counter > 0){
+                    this.frameX = this.frameX; 
+                    this.counter--;
+                }
+                else{
+                    this.frameX++
+                    this.counter = this.animationSpeed;
+                }
+            } else {
+                this.destroy();
+            }
+        }
+
+    }
+
     update() {
         super.update();
 
@@ -74,19 +108,24 @@ export class Boss extends Enemy {
 
         if (this.collisionData.touchPoints.other.id === "player") {
             if (this.collisionData.touchPoints.other.right && !this.collisionData.touchPoints.other.bottom) {
+                this.x--
                 this.direction = "attackL"; 
                 this.speed = 0;
             }
             else if(this.collisionData.touchPoints.other.left && !this.collisionData.touchPoints.other.bottom){
+                this.x++
                 this.direction = "attackR"; 
                 this.speed = 0;
             }
             else if(this.collisionData.touchPoints.other.bottom && this.immune == 0){
+                this.direction = "death";
+                if(!GameEnv.BossDeath && this.direction == "death"){
+                    this.frameX = 0;
+                }
+                GameEnv.BossDeath = true;
                 GameEnv.invincible = true;
                 GameEnv.goombaBounce = true;
                 GameEnv.playSound("goombaDeath");
-                this.animationSpeed = 55;
-                this.direction = "death";
             }
             
         }
