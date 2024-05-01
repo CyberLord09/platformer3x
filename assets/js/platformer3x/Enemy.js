@@ -5,35 +5,8 @@ import GameControl from './GameControl.js';
 export class Enemy extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition) {
-        super(canvas, image, data, 0.0, 0.2);
+        super(canvas, image, data, xPercentage, yPercentage, name, minPosition);
 
-        this.playerData = data;
-        //Unused but must be Defined
-        this.name = name;
-        this.y = yPercentage;
-
-        this.isIdle = false;
-        //Initial Position of Goomba
-        this.x = xPercentage * GameEnv.innerWidth;
-
-        //Access in which a Goomba can travel    
-        this.minPosition = minPosition * GameEnv.innerWidth;
-        this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
-
-        this.immune = 0;
-
-        this.storeSpeed = this.speed;
-
-        this.direction = "d"; // initially facing right
-
-        //Define Speed of Enemy
-        if (["easy", "normal"].includes(GameEnv.difficulty)) {
-            this.storeSpeed = this.speed * Math.floor(Math.random() * 1.5 + 2);
-        } else if (GameEnv.difficulty === "hard") {
-            this.storeSpeed = this.speed * Math.floor(Math.random() * 3 + 3);
-        } else {
-            this.storeSpeed = this.speed * 5
-        }
     }
 
     setAnimation(key) {
@@ -50,26 +23,23 @@ export class Enemy extends Character {
         }
     }
 
-    update() {
-        super.update();
-
-        this.setAnimation(this.direction);
-        
-        
+    checkBoundaries(){
         // Check for boundaries
         if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
-            if (this.direction === "a") {
-                this.direction = "d";
+            if (this.direction === "left") {
+                this.direction = "right";
             }
-            else if (this.direction === "d") {
-                this.direction = "a";
+            else if (this.direction === "right") {
+                this.direction = "left";
             }
         };
+    }
 
-        if (this.direction === "d") {
+    updateMovement(){
+        if (this.direction === "right") {
             this.speed = Math.abs(this.storeSpeed)
         }
-        else if (this.direction === "a") {
+        else if (this.direction === "left") {
             this.speed = -Math.abs(this.storeSpeed);
         }
         else if (this.direction === "idle") {
@@ -79,23 +49,31 @@ export class Enemy extends Character {
             this.speed = 0
         }
 
-        
-
-
         // Move the enemy\
         this.x += this.speed;
 
         this.playerBottomCollision = false;
     }
 
+    update() {
+        super.update();
+
+        this.setAnimation(this.direction);
+        
+        this.checkBoundaries();
+
+        this.updateMovement();
+
+    }
+
     // Player action on collisions
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
-            if (this.direction === "a" && this.collisionData.touchPoints.other.right) {
-                this.direction = "d";
+            if (this.direction === "left" && this.collisionData.touchPoints.other.right) {
+                this.direction = "right";
             }
-            else if (this.direction === "d" && this.collisionData.touchPoints.other.left) {
-                this.direction = "a";
+            else if (this.direction === "right" && this.collisionData.touchPoints.other.left) {
+                this.direction = "left";
             }
 
         }
@@ -121,11 +99,11 @@ export class Enemy extends Character {
         }
 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            if (this.direction === "a" && this.collisionData.touchPoints.other.right) {
-                this.direction = "d";
+            if (this.direction === "left" && this.collisionData.touchPoints.other.right) {
+                this.direction = "right";
             }
-            else if (this.direction === "d" && this.collisionData.touchPoints.other.left) {
-                this.direction = "a";
+            else if (this.direction === "right" && this.collisionData.touchPoints.other.left) {
+                this.direction = "left";
             }
         }
     }

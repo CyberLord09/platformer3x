@@ -28,7 +28,7 @@ export class Boss extends Enemy {
 
         this.storeSpeed = this.speed;
 
-        this.direction = "d"; // initially facing right\
+        this.direction = "right"; // initially facing right\
         //Define Speed of Enemy
         if (["easy", "normal"].includes(GameEnv.difficulty)) {
             this.speed = this.speed * Math.floor(Math.random() * 1.5 + 2);
@@ -69,6 +69,7 @@ export class Boss extends Enemy {
                 }
             } else {
                 this.destroy();
+                GameEnv.BossDeath = false;
             }
         }
 
@@ -86,11 +87,11 @@ export class Boss extends Enemy {
             GameControl.endRandomEvent();
         }
         else if (GameControl.randomEventId === 3 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "a"; 
+            this.direction = "left"; 
             GameControl.endRandomEvent();
         }
         else if (GameControl.randomEventId === 4 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "d"; 
+            this.direction = "right"; 
             GameControl.endRandomEvent();
         }
 
