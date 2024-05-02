@@ -329,7 +329,7 @@ const GameSetup = {
           width: 64,
           height: 64,
           scaleSize: 320,
-          speedRatio: 1.0,
+          speedRatio: 0.2,
           animationSpeed: 6,
           idleL: { row: 9, frames: 0, idleFrame: {column: 1, frames: 0} },
           idleR: { row: 11, frames: 0, idleFrame: {column: 1, frames: 0} },

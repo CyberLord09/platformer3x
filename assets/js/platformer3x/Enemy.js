@@ -6,7 +6,32 @@ export class Enemy extends Character {
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition) {
         super(canvas, image, data, xPercentage, yPercentage, name, minPosition);
+        this.playerData = data;
+        //Unused but must be Defined
+        this.name = name;
+        this.y = yPercentage;
 
+        this.isIdle = false;
+        //Initial Position of Goomba
+        this.x = xPercentage * GameEnv.innerWidth;
+
+
+
+        //Access in which a Goomba can travel    
+        this.minPosition = minPosition * GameEnv.innerWidth;
+        this.maxPosition = this.x + xPercentage * GameEnv.innerWidth;
+
+        this.immune = 0;
+
+        this.direction = "right"; // initially facing right\
+        //Define Speed of Enemy
+        if (["easy", "normal"].includes(GameEnv.difficulty)) {
+            this.speed = this.speed * Math.floor(Math.random() * 1.5 + 2);
+        } else if (GameEnv.difficulty === "hard") {
+            this.speed = this.speed * Math.floor(Math.random() * 3 + 3);
+        } else {
+            this.speed = this.speed * 5
+        }
     }
 
     setAnimation(key) {
@@ -37,10 +62,10 @@ export class Enemy extends Character {
 
     updateMovement(){
         if (this.direction === "right") {
-            this.speed = Math.abs(this.storeSpeed)
+            this.speed = Math.abs(this.speed)
         }
         else if (this.direction === "left") {
-            this.speed = -Math.abs(this.storeSpeed);
+            this.speed = -Math.abs(this.speed);
         }
         else if (this.direction === "idle") {
             this.speed = 0
@@ -87,14 +112,24 @@ export class Enemy extends Character {
             if (this.collisionData.touchPoints.other.bottom && this.immune == 0) {
                 GameEnv.invincible = true;
                 GameEnv.goombaBounce = true;
+                this.canvas.style.transition = "transform 1.5s, opacity 1s";
+                this.canvas.style.transition = "transform 2s, opacity 1s";
+                this.canvas.style.transformOrigin = "bottom"; // Set the transform origin to the bottom
+                this.canvas.style.transform = "scaleY(0)"; // Make the Goomba flat
+                this.speed = 0;
                 GameEnv.playSound("goombaDeath");
 
-                setTimeout((function () {
+                setTimeout((function() {
                     GameEnv.invincible = false;
                     this.destroy();
                 }).bind(this), 1500);
 
-
+    
+                // Set a timeout to make GameEnv.invincible false after 2000 milliseconds (2 seconds)
+                setTimeout(function () {
+                this.destroy();
+                GameEnv.invincible = false;
+                }, 2000);
             }
         }
 
