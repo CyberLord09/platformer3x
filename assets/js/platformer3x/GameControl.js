@@ -235,6 +235,33 @@ const GameControl = {
         // recycle gameLoop, aka recursion
         requestAnimationFrame(this.gameLoop.bind(this));  
     },
+
+    transitionToPreviousLevel() {
+        this.inTransition = true;
+    
+        // Destroy existing game objects
+        GameEnv.destroy();
+
+        // Get current level
+        const currentLevel = GameEnv.currentLevel;
+    
+        if (currentLevel) {
+            // Find the index of the current level
+            const currentIndex = GameEnv.levels.indexOf(currentLevel);
+    
+            // Check if the current level is not the first level
+            if (currentIndex === 5 ) {
+                // Transition to the previous level
+                this.transitionToLevel(GameEnv.levels[currentIndex - 1]);
+
+            } else {
+                // If it's the first level, transition to the last level (wrap around)
+                this.transitionToLevel(GameEnv.levels[currentIndex + 1]);
+            }
+        }
+    
+        this.inTransition = false;
+    }
 };
 
 export default GameControl;

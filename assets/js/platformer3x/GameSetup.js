@@ -564,7 +564,12 @@ const GameSetup = {
           { name: 'flag', id: 'flag', class: Flag, data: this.assets.obstacles.flag },
           { name: 'complete2', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete2 },
         ];
-
+  // Game Over Level definition...
+ const endGameObjects = [
+  { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
+  ];
+  // Game Over screen added to the GameEnv ...
+  new GameLevel( {tag: "end",  callback: this.gameOverCallBack, objects: endGameObjects } );
         // Greece Game Level added to the GameEnv ...
            new GameLevel( {tag: "ancient greece", callback: this.playerOffScreenCallBack, objects: greeceGameObjects} );
 
@@ -645,12 +650,7 @@ const GameSetup = {
           // Space Game Level added to the GameEnv ...
           new GameLevel( {tag: "mini", callback: this.playerOffScreenCallBack, objects: miniGameObjects} );
   
-        // Game Over Level definition...
-        const endGameObjects = [
-        { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
-        ];
-        // Game Over screen added to the GameEnv ...
-        new GameLevel( {tag: "end",  callback: this.gameOverCallBack, objects: endGameObjects } );
+       
     }
 } 
 // Bind the methods to the GameSetup object, ensures "this" inside of methods binds to "GameSetup"

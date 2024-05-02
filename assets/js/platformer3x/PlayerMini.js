@@ -85,8 +85,9 @@ export class PlayerMini extends PlayerBase {
                     if (Math.abs(this.y - this.bottom) <= GameEnv.gravity) {
                         // Force end of level condition
                         this.x = GameEnv.innerWidth + 1;
-                    }
-
+                        GameControl.transitionToPreviousLevel();
+                    
+                }
                 // 2. Collision between player right and tube   
                 } else if (this.collisionData.touchPoints.this.right) {
                     this.state.movement.right = false;
