@@ -3,6 +3,15 @@ import GameEnv from './GameEnv.js';
 import GameControl from './GameControl.js';
 
 export class Enemy extends Character {
+
+    initEnvironmentState = {
+        // Enemy
+        animation: 'right',
+        direction: 'right',
+        movement: {up: false, down: false, left: true, right: true, falling: false},
+        isDying: false,
+    };
+
     // constructors sets up Character object 
     constructor(canvas, image, data, xPercentage, yPercentage, name, minPosition) {
         super(canvas, image, data, xPercentage, yPercentage, name, minPosition);
@@ -15,7 +24,7 @@ export class Enemy extends Character {
         //Initial Position of Goomba
         this.x = xPercentage * GameEnv.innerWidth;
 
-
+        this.state = {...this.initEnvironmentState}; // Enemy and environment states 
 
         //Access in which a Goomba can travel    
         this.minPosition = minPosition * GameEnv.innerWidth;
@@ -23,7 +32,6 @@ export class Enemy extends Character {
 
         this.immune = 0;
 
-        this.direction = "right"; // initially facing right\
         //Define Speed of Enemy
         if (["easy", "normal"].includes(GameEnv.difficulty)) {
             this.speed = this.speed * Math.floor(Math.random() * 1.5 + 2);
@@ -51,26 +59,28 @@ export class Enemy extends Character {
     checkBoundaries(){
         // Check for boundaries
         if (this.x <= this.minPosition || (this.x + this.canvasWidth >= this.maxPosition)) {
-            if (this.direction === "left") {
-                this.direction = "right";
+            if (this.state.direction === "left") {
+                this.state.animation = "right";
+                this.state.direction = "right";
             }
-            else if (this.direction === "right") {
-                this.direction = "left";
+            else if (this.state.direction === "right") {
+                this.state.animation = "left";
+                this.state.direction = "left";
             }
         };
     }
 
     updateMovement(){
-        if (this.direction === "right") {
+        if (this.state.animation === "right") {
             this.speed = Math.abs(this.speed)
         }
-        else if (this.direction === "left") {
+        else if (this.state.animation === "left") {
             this.speed = -Math.abs(this.speed);
         }
-        else if (this.direction === "idle") {
+        else if (this.state.animation === "idle") {
             this.speed = 0
         }
-        else if (this.direction === "death") {
+        else if (this.state.animation === "death") {
             this.speed = 0
         }
 
@@ -83,7 +93,7 @@ export class Enemy extends Character {
     update() {
         super.update();
 
-        this.setAnimation(this.direction);
+        this.setAnimation(this.state.animation);
         
         this.checkBoundaries();
 
@@ -94,11 +104,13 @@ export class Enemy extends Character {
     // Player action on collisions
     collisionAction() {
         if (this.collisionData.touchPoints.other.id === "tube") {
-            if (this.direction === "left" && this.collisionData.touchPoints.other.right) {
-                this.direction = "right";
+            if (this.state.direction === "left" && this.collisionData.touchPoints.other.right) {
+                this.state.animation = "right";
+                this.state.direction = "right";
             }
-            else if (this.direction === "right" && this.collisionData.touchPoints.other.left) {
-                this.direction = "left";
+            else if (this.state.direction === "right" && this.collisionData.touchPoints.other.left) {
+                this.state.animation = "left";
+                this.state.direction = "left";
             }
 
         }
@@ -134,11 +146,13 @@ export class Enemy extends Character {
         }
 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            if (this.direction === "left" && this.collisionData.touchPoints.other.right) {
-                this.direction = "right";
+            if (this.state.direction === "left" && this.collisionData.touchPoints.other.right) {
+                this.state.animation = "right";
+                this.state.direction = "right";
             }
-            else if (this.direction === "right" && this.collisionData.touchPoints.other.left) {
-                this.direction = "left";
+            else if (this.state.direction === "right" && this.collisionData.touchPoints.other.left) {
+                this.state.animation = "left";
+                this.state.direction = "left";
             }
         }
     }

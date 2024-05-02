@@ -11,14 +11,12 @@ export class Boss extends Enemy {
 
         this.storeSpeed = this.speed;
 
-        this.direction = "right"; // initially facing right\
-
         this.death = false;
     }
     //overwrite the method
     updateFrameX() {
         // Update animation frameX of the object
-        if(!this.death || this.direction != "death"){
+        if(!this.death || this.state.animation != "death"){
             if (this.frameX < this.maxFrame) {
                 if(this.counter > 0){
                     this.frameX = this.frameX; 
@@ -32,7 +30,7 @@ export class Boss extends Enemy {
                 this.frameX = this.minFrame;
             }
         }
-        else if(this.death && this.direction == "death"){
+        else if(this.death && this.state.animation == "death"){
             this.animationSpeed = 50;
             if (this.frameX < this.maxFrame) {
                 if(this.counter > 0){
@@ -52,19 +50,19 @@ export class Boss extends Enemy {
 
     //overwrite the method
     updateMovement(){
-        if (this.direction === "right") {
+        if (this.state.animation === "right") {
             this.speed = Math.abs(this.storeSpeed)
         }
-        else if (this.direction === "left") {
+        else if (this.state.animation === "left") {
             this.speed = -Math.abs(this.storeSpeed);
         }
-        else if (this.direction === "death") {
+        else if (this.state.animation === "death") {
             this.speed = 0
         }
-        else if (this.direction === "idleL") {
+        else if (this.state.animation === "idleL") {
             this.speed = 0
         }
-        else if (this.direction === "idleR") {
+        else if (this.state.animation === "idleR") {
             this.speed = 0
         }
 
@@ -76,19 +74,23 @@ export class Boss extends Enemy {
 
     randomEvent(){
         if (GameControl.randomEventId === 1 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "idleL"; 
+            this.state.direction = "left";
+            this.state.animation = "idleL"; 
             GameControl.endRandomEvent();
         }
         else if (GameControl.randomEventId === 2 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "idleR"; 
+            this.state.direction = "right";
+            this.state.animation = "idleR"; 
             GameControl.endRandomEvent();
         }
         else if (GameControl.randomEventId === 3 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "left"; 
+            this.state.direction = "left";
+            this.state.animation = "left"; 
             GameControl.endRandomEvent();
         }
         else if (GameControl.randomEventId === 4 && GameControl.randomEventState === 2){ //event: stop the zombie
-            this.direction = "right"; 
+            this.state.direction = "right";
+            this.state.animation = "right"; 
             GameControl.endRandomEvent();
         }
     }
@@ -105,11 +107,13 @@ export class Boss extends Enemy {
     collisionAction() {
 
         if (this.collisionData.touchPoints.other.id === "tube") {
-            if (this.direction === "left" && this.collisionData.touchPoints.other.right) {
-                this.direction = "right";
+            if (this.state.direction === "left" && this.collisionData.touchPoints.other.right) {
+                this.state.animation = "right";
+                this.state.direction = "right";
             }
-            else if (this.direction === "right" && this.collisionData.touchPoints.other.left) {
-                this.direction = "left";
+            else if (this.state.direction === "right" && this.collisionData.touchPoints.other.left) {
+                this.state.animation = "left";
+                this.state.direction = "left";
             }
 
         }
@@ -118,17 +122,19 @@ export class Boss extends Enemy {
         if (this.collisionData.touchPoints.other.id === "player") {
             if (this.collisionData.touchPoints.other.right && !this.collisionData.touchPoints.other.bottom) {
                 this.x--
-                this.direction = "attackL"; 
+                this.state.direction = "left";
+                this.state.animation = "attackL"; 
                 this.speed = 0;
             }
             else if(this.collisionData.touchPoints.other.left && !this.collisionData.touchPoints.other.bottom){
                 this.x++
-                this.direction = "attackR"; 
+                this.state.direction = "right";
+                this.state.animation = "attackR"; 
                 this.speed = 0;
             }
             else if(this.collisionData.touchPoints.other.bottom && this.immune == 0){
-                this.direction = "death";
-                if(!this.death && this.direction == "death"){
+                this.state.animation = "death";
+                if(!this.death && this.state.animation == "death"){
                     this.frameX = 0;
                 }
                 this.death = true;
@@ -140,11 +146,13 @@ export class Boss extends Enemy {
         }
 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {
-            if (this.direction === "left" && this.collisionData.touchPoints.other.right) {
-                this.direction = "right";
+            if (this.state.direction === "left" && this.collisionData.touchPoints.other.right) {
+                this.state.animation = "right";
+                this.state.direction = "right";
             }
-            else if (this.direction === "right" && this.collisionData.touchPoints.other.left) {
-                this.direction = "left";
+            else if (this.state.direction === "right" && this.collisionData.touchPoints.other.left) {
+                this.state.direction = "left";
+                this.state.animation = "left";
             }
         }
     }
