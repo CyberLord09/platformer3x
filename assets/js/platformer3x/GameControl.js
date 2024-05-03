@@ -223,7 +223,7 @@ const GameControl = {
                     if (currentIndex !== -1 && currentIndex + 1 < GameEnv.levels.length) {
                         // transition to the next level
                         this.transitionToLevel(GameEnv.levels[currentIndex + 1]);
-                    } 
+                    }  
                 }
             // currentLevel is null, (ie start or restart game)
             } else {
@@ -238,7 +238,7 @@ const GameControl = {
 
     transitionToPreviousLevel() {
         this.inTransition = true;
-    
+        
         // Destroy existing game objects
         GameEnv.destroy();
 
@@ -256,12 +256,13 @@ const GameControl = {
 
             } else {
                 // If it's the first level, transition to the last level (wrap around)
-                this.transitionToLevel(GameEnv.levels[currentIndex + 1]);
+                this.transitionToLevel(GameEnv.levels[currentIndex - 1]);
             }
+         
         }
-    
         this.inTransition = false;
-    }
+    },
+
 };
 
 export default GameControl;

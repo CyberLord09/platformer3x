@@ -61,7 +61,7 @@ export class PlayerMini extends PlayerBase {
     handleCollisionStart() {
         super.handleCollisionStart(); // calls the super class method
         // adds additional collision events
-        this.handleCollisionEvent("tube");
+        this.handleCollisionEvent("tubeU");
         this.handleCollisionEvent("goomba");
         this.handleCollisionEvent("mushroom");
 
@@ -75,7 +75,7 @@ export class PlayerMini extends PlayerBase {
         super.handlePlayerReaction(); // calls the super class method
         // handles additional player reactions
         switch (this.state.collision) {
-            case "tube":
+            case "tubeU":
                 // 1. Caught in tube
 
                 if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom) {

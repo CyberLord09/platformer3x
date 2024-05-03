@@ -19,6 +19,7 @@ export class Tube1 extends Tube {
 
         // Customize tube position based on the overridden tubeX value
         const tubeY = (GameEnv.top + 0.001 * scaledHeight);
+        const tubeX = .80 * GameEnv.innerWidth;
 
         // Set variables used in Display and Collision algorithms
         this.bottom = tubeY;

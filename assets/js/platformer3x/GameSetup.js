@@ -15,6 +15,7 @@ import PlayerMini from './PlayerMini.js';
 import PlayerBase from './PlayerBase.js';
 import Tube from './Tube.js';
 import Tube1 from './Tube1.js';
+import TubeGreece from './TubeGreece.js';
 import Tree from './Tree.js';
 import Goomba from './Goomba.js';
 import FlyingGoomba from './FlyingGoomba.js';
@@ -204,11 +205,17 @@ const GameSetup = {
 
     assets: {
       obstacles: {
-        tube: { src: "/images/platformer/obstacles/blue-tube-up.png",
+        tube: { src: "/images/platformer/obstacles/tube.png",
+                hitbox: { widthPercentage: 0.5, heightPercentage: 0.5}
+              },
+        tubeU: { src: "/images/platformer/obstacles/blue-tube-up.png",
                 hitbox: { widthPercentage: 0.5, heightPercentage: 0.5}
               },
         tubeD: { src: "/images/platformer/obstacles/blue-tube.png",
               hitbox: { widthPercentage: 0.5, heightPercentage: 0.5}
+              },
+        tubeGreece: {src: "/images/platformer/obstacles/blue-tube-up.png",
+                hitbox: { widthPercentage: 0.5, heightPercentage: 0.5}
               },
         star: { src: "/images/platformer/obstacles/star.png"},
         coin: { src: "/images/platformer/obstacles/coin.png"},
@@ -562,14 +569,15 @@ const GameSetup = {
           { name: 'dragon', id: 'dragon', class: Dragon, data: this.assets.enemies.dragon, xPercentage:  0.5, minPosition:  0.05},
           { name: 'knight', id: 'player', class: PlayerGreece, data: this.assets.players.knight },
           { name: 'flag', id: 'flag', class: Flag, data: this.assets.obstacles.flag },
+          { name: 'tubeU', id: 'tubeU', class: TubeGreece, data: this.assets.obstacles.tubeU, xPercentage: 0.66, yPercentage: 1.19 },
           { name: 'complete2', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete2 },
         ];
-  // Game Over Level definition...
- const endGameObjects = [
-  { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
-  ];
-  // Game Over screen added to the GameEnv ...
-  new GameLevel( {tag: "end",  callback: this.gameOverCallBack, objects: endGameObjects } );
+        // Game Over Level definition...
+      const endGameObjects = [
+        { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
+        ];
+        // Game Over screen added to the GameEnv ...
+        new GameLevel( {tag: "end",  callback: this.gameOverCallBack, objects: endGameObjects } );
         // Greece Game Level added to the GameEnv ...
            new GameLevel( {tag: "ancient greece", callback: this.playerOffScreenCallBack, objects: greeceGameObjects} );
 
@@ -642,15 +650,13 @@ const GameSetup = {
             { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.7675, yPercentage: 0.5 },
             { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.7875, yPercentage: 0.5 },
             { name: 'coin', id: 'coin', class: Coin, data: this.assets.obstacles.coin, xPercentage: 0.8075, yPercentage: 0.5 },
-            { name: 'mario', id: 'player', class: PlayerMini, data: this.assets.players.mario },
+            { name: 'knight', id: 'player', class: PlayerMini, data: this.assets.players.knight },
             { name: 'tubeD', id: 'tubeD', class: Tube1, data: this.assets.obstacles.tubeD},
-            { name: 'tube', id: 'tube', class: Tube, data: this.assets.obstacles.tube },
+            { name: 'tubeU', id: 'tubeU', class: Tube, data: this.assets.obstacles.tubeU},
             // { name: 'complete', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete },
           ];
           // Space Game Level added to the GameEnv ...
           new GameLevel( {tag: "mini", callback: this.playerOffScreenCallBack, objects: miniGameObjects} );
-  
-       
     }
 } 
 // Bind the methods to the GameSetup object, ensures "this" inside of methods binds to "GameSetup"
