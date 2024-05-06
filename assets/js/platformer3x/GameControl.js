@@ -9,6 +9,7 @@
 import GameEnv from './GameEnv.js';
 import Socket from './Multiplayer.js';
 import SettingsControl from "./SettingsControl.js";
+import GameLevel from './GameLevel.js';
 
 /**
  * GameControl is a singleton object that controls the game loop.
@@ -199,6 +200,8 @@ const GameControl = {
         this.inTransition = false;
     },
 
+
+
     /**
      * The main game control loop.
      * Checks if the game is in transition. If it's not, it updates the game environment,
@@ -207,13 +210,13 @@ const GameControl = {
      * Finally, it calls itself again using requestAnimationFrame to create a loop.
      */    
     gameLoop() {
-        // Turn game loop off during transitions
-        if (!this.inTransition) {
-
+        // Turn game loop off during transitions or when transitioning to the previous level
+        if (!this.inTransition && !this.transitionToPrevious) {
+    
             // Get current level
             GameEnv.update();
             const currentLevel = GameEnv.currentLevel;
-
+    
             // currentLevel is defined
             if (currentLevel) {
                 // run the isComplete callback function
@@ -222,7 +225,7 @@ const GameControl = {
                     // next index is in bounds
                     if (currentIndex !== -1 && currentIndex + 1 < GameEnv.levels.length) {
                         // transition to the next level
-                        this.transitionToLevel(GameEnv.levels[currentIndex + 1]);
+                         this.transitionToLevel(GameEnv.levels[currentIndex + 1]);
                     }  
                 }
             // currentLevel is null, (ie start or restart game)
@@ -231,36 +234,9 @@ const GameControl = {
                 this.transitionToLevel(GameEnv.levels[0]);
             }
         }
-
+    
         // recycle gameLoop, aka recursion
         requestAnimationFrame(this.gameLoop.bind(this));  
-    },
-
-    transitionToPreviousLevel() {
-        this.inTransition = true;
-        
-        // Destroy existing game objects
-        GameEnv.destroy();
-
-        // Get current level
-        const currentLevel = GameEnv.currentLevel;
-    
-        if (currentLevel) {
-            // Find the index of the current level
-            const currentIndex = GameEnv.levels.indexOf(currentLevel);
-    
-            // Check if the current level is not the first level
-            if (currentIndex === 5 ) {
-                // Transition to the previous level
-                this.transitionToLevel(GameEnv.levels[currentIndex - 1]);
-
-            } else {
-                // If it's the first level, transition to the last level (wrap around)
-                this.transitionToLevel(GameEnv.levels[currentIndex - 1]);
-            }
-         
-        }
-        this.inTransition = false;
     },
 
 };

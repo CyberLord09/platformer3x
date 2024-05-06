@@ -63,8 +63,8 @@ import Star from './Star.js';
  * * * the remainder of GameSetup supports initLevels()
  * 
 */
-
 // Define the GameSetup object literal
+
 const GameSetup = {
 
     /*  ==========================================
@@ -508,7 +508,7 @@ const GameSetup = {
         { name: 'loading', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.loading },
       ];
       let hillsGameObjects = allHillsGameObjects.filter(obj => !obj.difficulties || obj.difficulties.includes(difficulty));
-
+      
        // Hills Game Level added to the GameEnv ...
        new GameLevel( {tag: "hills", callback: this.playerOffScreenCallBack, objects: hillsGameObjects } );
 
@@ -572,12 +572,7 @@ const GameSetup = {
           { name: 'tubeU', id: 'tubeU', class: TubeGreece, data: this.assets.obstacles.tubeU, xPercentage: 0.66, yPercentage: 1.19 },
           { name: 'complete2', id: 'background', class: BackgroundTransitions,  data: this.assets.backgrounds.complete2 },
         ];
-        // Game Over Level definition...
-      const endGameObjects = [
-        { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
-        ];
-        // Game Over screen added to the GameEnv ...
-        new GameLevel( {tag: "end",  callback: this.gameOverCallBack, objects: endGameObjects } );
+     
         // Greece Game Level added to the GameEnv ...
            new GameLevel( {tag: "ancient greece", callback: this.playerOffScreenCallBack, objects: greeceGameObjects} );
 
@@ -657,6 +652,12 @@ const GameSetup = {
           ];
           // Space Game Level added to the GameEnv ...
           new GameLevel( {tag: "mini", callback: this.playerOffScreenCallBack, objects: miniGameObjects} );
+             // Game Over Level definition...
+      const endGameObjects = [
+        { name:'background', class: Background, id: 'background', data: this.assets.backgrounds.end}
+        ];
+        // Game Over screen added to the GameEnv ...
+        new GameLevel( {tag: "end",  callback: this.gameOverCallBack, objects: endGameObjects } );
     }
 } 
 // Bind the methods to the GameSetup object, ensures "this" inside of methods binds to "GameSetup"

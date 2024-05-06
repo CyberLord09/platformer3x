@@ -72,7 +72,9 @@ export class PlayerGreece extends PlayerBase {
                     // Using natural gravity wait for player to reach floor
                     if (Math.abs(this.y - this.bottom) <= GameEnv.gravity) {
                         // Force end of level condition
-                        this.x = GameEnv.innerWidth + 1;
+                        // this.x = GameEnv.innerWidth + 1;
+                        GameControl.transitionToLevel(GameEnv.levels[4])
+                        return
                     }
                 // 2. Collision between player right and tube   
                 } else if (this.collisionData.touchPoints.this.right) {
@@ -85,7 +87,7 @@ export class PlayerGreece extends PlayerBase {
                 }
                 break;
 
-            case "flag":
+            case "flag": 
                 // 1. Caught in tube
                 if (this.collisionData.touchPoints.this.top && this.collisionData.touchPoints.other.bottom) {
                     // Position player in the center of the tube 
@@ -93,7 +95,10 @@ export class PlayerGreece extends PlayerBase {
                     // Using natural gravity wait for player to reach floor
                     if (Math.abs(this.y - this.bottom) <= GameEnv.gravity) {
                         // Force end of level condition
-                        this.x = GameEnv.innerWidth + 1;
+                        // this.x = GameEnv.innerWidth + 1;
+                        console.log("what??")
+                        GameControl.transitionToLevel(GameEnv.levels[5]) //not a number
+                        return
                     }
                 // 2. Collision between player right and tube   
                 } else if (this.collisionData.touchPoints.this.right) {

@@ -1,6 +1,7 @@
 import GameEnv from './GameEnv.js';
 import PlayerBase from './PlayerBase.js';
 import GameControl from './GameControl.js';
+import GameSetup from './GameSetup.js';
 
 /**
  * @class PlayerHills class
@@ -36,6 +37,7 @@ export class PlayerMini extends PlayerBase {
      * @override
      * gameLoop helper: Update Player jump height, replaces PlayerBase updateJump using settings from GameEnv
      */
+    
     updateJump() {  
         let jumpHeightFactor;
         if (GameEnv.difficulty === "easy") {
@@ -84,8 +86,9 @@ export class PlayerMini extends PlayerBase {
                     // Using natural gravity wait for player to reach floor
                     if (Math.abs(this.y - this.bottom) <= GameEnv.gravity) {
                         // Force end of level condition
-                        this.x = GameEnv.innerWidth + 1;
-                        GameControl.transitionToPreviousLevel();
+                        // this.x = GameEnv.innerWidth + 1;
+                        GameControl.transitionToLevel(GameEnv.levels[3])
+                        // GameControl.transitionToPreviousLevel();
                     
                 }
                 // 2. Collision between player right and tube   
