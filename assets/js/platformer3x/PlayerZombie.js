@@ -175,13 +175,34 @@ export class PlayerZombie extends PlayerBaseOneD {
     /**
      * @override
      */
+    handleKeyUp(event) {
+        const key = event.key;
+        if (key in this.pressedKeys) {
+            delete this.pressedKeys[key];
+            if (Object.keys(this.pressedKeys).length > 0) {
+                // If there are still keys in pressedKeys, update the state to the last one
+                const lastKey = Object.keys(this.pressedKeys)[Object.keys(this.pressedKeys).length - 1];
+                this.updateAnimationState(lastKey);
+                GameEnv.updateParallaxDirection(lastKey)
+            } else {
+                // If there are no more keys in pressedKeys, update the state to null
+                GameEnv.playerAttack = false;
+                this.updateAnimationState(null);
+                GameEnv.updateParallaxDirection(null)
+            }
+        }
+    }
+
+
+    /**
+     * @override
+     */
     updateAnimationState(key) {
         switch (key) {
             case 'a':
             case 'd':
                 this.state.animation = 'walk';
                 GameEnv.playerAttack = false;
-                console.log(GameEnv.playerAttack)
                 break;
             case 'w':
                 if (this.state.movement.up == false) {
@@ -189,24 +210,24 @@ export class PlayerZombie extends PlayerBaseOneD {
                     this.state.animation = 'jump';
                 }
                 GameEnv.playerAttack = false;
-                console.log(GameEnv.playerAttack)
                 break;
             case 's':
                 if ("a" in this.pressedKeys || "d" in this.pressedKeys) {
                     this.state.animation = 'run';
                 }
+
                 GameEnv.playerAttack = false;
-                console.log(GameEnv.playerAttack)
+                
                 break;
             case 'Shift':
                 this.state.animation = 'attack';  // Example action for Space key
-                GameEnv.playerAttack = true;
-                console.log(GameEnv.playerAttack)
+                if(GameEnv.playerChange){
+                    GameEnv.playerAttack = true;
+                }
                 break;
             default:
                 this.state.animation = 'idle';
                 GameEnv.playerAttack = false;
-                console.log(GameEnv.playerAttack)
                 break;
         }
     }

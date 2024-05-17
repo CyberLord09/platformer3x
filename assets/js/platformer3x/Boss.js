@@ -55,6 +55,7 @@ export class Boss extends Enemy {
         this.hpBar.style.height = `${hpBarHeight}px`;
         this.hpBar.style.border = '2px solid black';
 
+        this.attackRange = 10;
       }
 
     //overwrite the method
@@ -166,38 +167,36 @@ export class Boss extends Enemy {
 
         if (this.collisionData.touchPoints.other.id === "player") {
             if (this.collisionData.touchPoints.other.right && !this.collisionData.touchPoints.other.bottom) {
-                this.x--
+                this.x-=10
                 this.state.direction = "left";
                 this.state.animation = "attackL"; 
                 this.speed = 0;
             }
             else if(this.collisionData.touchPoints.other.left && !this.collisionData.touchPoints.other.bottom){
-                this.x++
+                this.x+=10
                 this.state.direction = "right";
                 this.state.animation = "attackR"; 
                 this.speed = 0;
             }
             else if(this.collisionData.touchPoints.other.bottom && this.immune == 0){ 
-                if(this.currentHp == 0){
-                    this.state.animation = "death";
-                    if(!this.state.isDying && this.state.animation == "death"){
-                        this.frameX = 0;
-                    }
-                    this.state.isDying = true;
-                    GameEnv.invincible = true;
-                    GameEnv.goombaBounce = true;
-                    GameEnv.playSound("goombaDeath");
-                }
-                else{
-                    console.log(GameEnv.playerAttack);
-                    if (GameEnv.playerAttack = true) {
-                        this.currentHp -= 12.5;
-                        GameEnv.goombaBounce = true;
-                    }
-                }
-
+                GameEnv.goombaBounce = true;
             }
-            
+        }
+        else{
+            if(this.currentHp < 0){
+                this.state.animation = "death";
+                if(!this.state.isDying && this.state.animation == "death"){
+                    this.frameX = 0;
+                }
+                this.state.isDying = true;
+                GameEnv.invincible = true;
+                GameEnv.playSound("goombaDeath");
+            }
+            else{
+                if (GameEnv.playerAttack && (Math.abs((this.x + this.canvasWidth)/2-GameEnv.x) < (this.canvasWidth/2 + this.attackRange))) {
+                    this.currentHp -= 1;
+                }
+            }
         }
 
         if (this.collisionData.touchPoints.other.id === "jumpPlatform") {

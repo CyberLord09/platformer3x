@@ -32,14 +32,14 @@ export class PlayerBoss extends PlayerBase {
      * @override
      * gameLoop helper: Update Player jump height, replaces PlayerBase updateJump using settings from GameEnv
      */
-    updateJump() {  
+    updateJump() {
         let jumpHeightFactor;
         if (GameEnv.difficulty === "easy") {
             jumpHeightFactor = 0.50;
         } else if (GameEnv.difficulty === "normal") {
             jumpHeightFactor = 0.40;
         }
-        if(GameEnv.currentLevel.tag == "boss"){
+        if (GameEnv.currentLevel.tag == "boss") {
             jumpHeightFactor = 0.70;
         }
         this.setY(this.y - (this.bottom * jumpHeightFactor));
@@ -48,7 +48,7 @@ export class PlayerBoss extends PlayerBase {
     /**
      * @override
      * gameLoop: Watch for Player collision events 
-     */ 
+     */
     handleCollisionStart() {
         super.handleCollisionStart(); // calls the super class method
         // adds additional collision events
@@ -56,37 +56,46 @@ export class PlayerBoss extends PlayerBase {
         this.handleCollisionEvent("boss");
     }
 
-        /**
+    /**
  * @override
- * gameLoop: Watch for Player collision events 
  */
-        draw() {
-            // Set fixed dimensions and position for the Character
-            this.canvas.width = this.canvasWidth;
-            this.canvas.height = this.canvasHeight;
-            this.canvas.style.width = `${this.canvas.width}px`;
-            this.canvas.style.height = `${this.canvas.height}px`;
-            this.canvas.style.position = 'absolute';
-            this.canvas.style.left = `${this.x}px`; // Set character horizontal position based on its x-coordinate
-            this.canvas.style.top = `${this.y}px`; // Set character up and down position based on its y-coordinate
-            this.ctx.fillStyle = "black";
-            this.ctx.font = "10px Arial";
-            if (!GameEnv.playerChange) {
-                this.ctx.fillText(this.name, 0, this.canvas.height / 4);
-                this.ctx.drawImage(
-                    this.image,
-                    this.frameX * this.spriteWidth,
-                    this.frameY * this.spriteHeight,
-                    this.spriteWidth,
-                    this.spriteHeight,
-                    0,
-                    0,
-                    this.canvas.width,
-                    this.canvas.height
-                );
-            }
+    update() {
+        super.update(); // calls the super class method
+        GameEnv.x = this.x;
+        GameEnv.y = this.y;
+    }
+
+    /**
+* @override
+* gameLoop: Watch for Player collision events 
+*/
+    draw() {
+        // Set fixed dimensions and position for the Character
+        this.canvas.width = this.canvasWidth;
+        this.canvas.height = this.canvasHeight;
+        this.canvas.style.width = `${this.canvas.width}px`;
+        this.canvas.style.height = `${this.canvas.height}px`;
+        this.canvas.style.position = 'absolute';
+        this.canvas.style.left = `${this.x}px`; // Set character horizontal position based on its x-coordinate
+        this.canvas.style.top = `${this.y}px`; // Set character up and down position based on its y-coordinate
+        this.ctx.fillStyle = "black";
+        this.ctx.font = "10px Arial";
+        if (!GameEnv.playerChange) {
+            this.ctx.fillText(this.name, 0, this.canvas.height / 4);
+            this.ctx.drawImage(
+                this.image,
+                this.frameX * this.spriteWidth,
+                this.frameY * this.spriteHeight,
+                this.spriteWidth,
+                this.spriteHeight,
+                0,
+                0,
+                this.canvas.width,
+                this.canvas.height
+            );
         }
-   
+    }
+
     /**
      * @override
      * gameloop: Handles additional Player reaction / state updates to the collision for game level 
@@ -105,11 +114,11 @@ export class PlayerBoss extends PlayerBase {
                         // Force end of level condition
                         this.x = GameEnv.innerWidth + 1;
                     }
-                // 2. Collision between player right and tube   
+                    // 2. Collision between player right and tube   
                 } else if (this.collisionData.touchPoints.this.right) {
                     this.state.movement.right = false;
                     this.state.movement.left = true;
-                // 3. Collision between player left and tube
+                    // 3. Collision between player left and tube
                 } else if (this.collisionData.touchPoints.this.left) {
                     this.state.movement.left = false;
                     this.state.movement.right = true;
@@ -124,10 +133,10 @@ export class PlayerBoss extends PlayerBase {
                         this.y = this.y - 100;
                     }
                     if (GameEnv.goombaBounce1 === true) {
-                        GameEnv.goombaBounce1 = false; 
+                        GameEnv.goombaBounce1 = false;
                         this.y = this.y - 250
                     }
-                // 2. Player touches goomba sides of goomba 
+                    // 2. Player touches goomba sides of goomba 
                 } else if (this.collisionData.touchPoints.this.right || this.collisionData.touchPoints.this.left) {
                     if (GameEnv.difficulty === "normal" || GameEnv.difficulty === "hard") {
                         if (this.state.isDying == false) {
@@ -135,16 +144,16 @@ export class PlayerBoss extends PlayerBase {
                             this.canvas.style.transition = "transform 0.5s";
                             this.canvas.style.transform = "rotate(-90deg) translate(-26px, 0%)";
                             GameEnv.playSound("PlayerDeath");
-                            setTimeout(async() => {
+                            setTimeout(async () => {
                                 await GameControl.transitionToLevel(GameEnv.levels[GameEnv.levels.indexOf(GameEnv.currentLevel)]);
-                            }, 900); 
+                            }, 900);
                         }
                     } else if (GameEnv.difficulty === "easy" && this.collisionData.touchPoints.this.right) {
                         this.x -= 10;
                     } else if (GameEnv.difficulty === "easy" && this.collisionData.touchPoints.this.left) {
-                       this.x += 10;
+                        this.x += 10;
                     }
-                
+
                 }
                 break;
         }
